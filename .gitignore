@@ -1,0 +1,6 @@
+**/*.iml
+.idea/
+/**/*.log
+/**/target/
+.DS_Store
+**/*.rebel.xml.bak
