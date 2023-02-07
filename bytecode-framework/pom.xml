@@ -2,16 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <groupId>com.whz</groupId>
-    <version>1.0-SNAPSHOT</version>
-    <artifactId>bytecode-demo</artifactId>
-    <packaging>pom</packaging>
+    <parent>
+        <artifactId>bytecode-demo</artifactId>
+        <groupId>com.whz</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>bytecode-framework</artifactId>
+    <packaging>pom</packaging>
     <modules>
-        <module>bytecode-apply</module>
-        <module>bytecode-framework</module>
+        <module>asm</module>
+        <module>javassist</module>
     </modules>
 
     <properties>
@@ -19,15 +21,4 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-
-        </dependencies>
-    </dependencyManagement>
-
-    <build>
-        <plugins>
-
-        </plugins>
-    </build>
 </project>

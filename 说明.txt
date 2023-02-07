@@ -1,0 +1,54 @@
+文章：
+https://zxbcw.cn/post/221236/
+https://www.cnblogs.com/xd502djj/p/13062165.html
+
+
+一、体系框架
+
+spring-aop + aopalliance(简称：aop联盟，不是aop实现，而是定义aop框架规范，spring使用该框架的定义，整合了多种aop实现技术，包括：jdk-proxy、cglib和aspectj，这些aop技术底层使用技术包括：java反射机制、asm和java instrument机制)
+
+    jdk-proxy：底层使用的是java反射机制
+        |-reflect
+
+    cglib：底层借用了asm字节码技术
+        |- asm
+
+    aspectj：底层使用的是java instrument机制
+        |- instrument
+
+    代理模式:硬编码
+
+二、说明
+
+    2.1字节码底层技术框架：
+
+    asm：ASM是一个Java字节码操纵框架，它能被用来动态生成类或者增强既有类的功能。ASM可以直接产生二进制class文件，也可以在类被加载入Java虚拟机之前动态改变类行为。Java class被存储在严格格式定义的.class文件里，这些类文件拥有足够的元数据来解析类中的所有元素：类名称、方法、属性以及 Java 字节码（指令）。ASM从类文件中读入信息后，能够改变类行为，分析类信息，甚至能够根据用户要求生成新类。目前许多框架如cglib、Hibernate、Spring都直接或间接地使用ASM操作字节码
+
+    Javassist：Javassist是一个开源的分析、编辑和创建Java字节码的类库。是由东京技术学院的数学和计算机科学系的 Shigeru Chiba 所创建的。它已加入了开放源代码JBoss 应用服务器项目,通过使用Javassist对字节码操作为JBoss实现动态AOP框架。
+
+    2.1 字节码工具
+    cglib：
+
+    Byte Buddy：Byte Buddy是一个代码生成和操作库，和cglib类似，用于在Java应用程序运行时创建和修改Java类，而无需编译器的帮助。除了Java类库附带的代码生成实用程序外，Byte Buddy还允许创建任意类，并且不限于实现用于创建运行时代理的接口。此外，Byte Buddy提供了一种方便的API，可以使用Java代理或在构建过程中手动更改类。Byte Buddy底层也是借用asm技术实现的。
+
+    aspectj:
+
+        相关jar包说明:
+
+        aspectjrt.jar包:
+            主要是提供 运行时的一些注解，静态方法等等东西，通常我们要使用aspectJ的时候都要使用这个包。
+        aspectjtools.jar包:
+            主要是提供赫赫有名的ajc编译器，可以在编译期将java文件或者class文件或者aspect文件定义的切面织入到业务代码中。通常这个东西可以用在ant和maven中定义任务，或者IDE调用。
+        aspectjweaverjar包:
+            主要是提供了一个javaagent用于在类加载期间织入切面(Load time weaving即LTW)。并且提供了对切面语法的相关处理等基础方法，供ajc使用或者供第三方开发使用。
+
+
+    aspectj的3种方式代理实现
+
+        编译时织入:
+            利用ajc编译器替代javac编译器，直接将源文件(java或者aspect文件)编译成class文件并将切面织入进代码。
+        编译后织入:
+            利用ajc编译器向javac编译期编译后的class文件或jar文件织入切面代码。
+        加载时织入:
+            不使用ajc编译器，利用aspectjweaver.jar工具，使用java agent代理在类加载期将切面织入进代码。
+
